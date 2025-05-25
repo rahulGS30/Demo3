@@ -26,8 +26,10 @@ jobs:
         run: npm ci
       - name: Build website
         run: npm run build
-      - name: Show output files
-        run: ls -R
+      - name: Upload dummy file
+        run: |
+          mkdir -p dummy_folder
+          echo "placeholder" > dummy_folder/README.txt
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
