@@ -26,18 +26,20 @@ jobs:
         run: npm ci
       - name: Build website
         run: npm run build
-      - name: Upload dummy file
-        run: |
-          mkdir -p dummy_folder
-          echo "placeholder" > dummy_folder/README.txt
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: dist-files
-          path: dummy_folder
+          path: dist
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Get build artifacts
+        uses: actions/downloadiartifact@v4
+        with:
+          name: dist-files
+      - name: Output contents
+        run: ls
       - name: Deploy
         run: echo "Deploying..."
